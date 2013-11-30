@@ -13,7 +13,7 @@ $(document).ready(function() {
 
 function initialize(){
 	var myOptions = {
-			zoom: 5,
+			zoom: 8,
 			panControl: false,
 			zoomControl: true,
 			mapTypeControl: true,
@@ -27,7 +27,7 @@ function initialize(){
 	myMap = new google.maps.Map(e, myOptions);
 
 
-	myMap.setCenter( new google.maps.LatLng(39.909736,-102.619171));  //Default is ohio. play it safe and set automatically
+	myMap.setCenter( new google.maps.LatLng(34.089061,-116.889896));  //Default is CA. play it safe and set automatically
 	
 	generateAndPlaceMarkers();
 }
@@ -59,7 +59,7 @@ function generateAndPlaceMarkers()	{
 
     $.ajax({
         type: "GET",
-        url: "resources/FinalData.csv",
+        url: "resources/CA_Data.csv",
         dataType: "text",
         success: function(data) {processData(data);}
      });

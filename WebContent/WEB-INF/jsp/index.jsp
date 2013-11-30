@@ -5,7 +5,7 @@
 
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>Vertical Sliding Info Panel With jQuery</title>
+<title>RestViz</title>
 <link rel="stylesheet" href="css/style.css" type="text/css" media="screen" />
 <script type="text/javascript" src="http://jqueryjs.googlecode.com/files/jquery-1.3.2.js"></script>
 <script src="https://maps.google.com/maps/api/js?sensor=false"/>
@@ -30,41 +30,44 @@ $(document).ready(function(){
 
 
 <div id="mypanel" class="panel">
-	<h3>Sliding Panel</h3>
-	<p>Here's our sliding panel/drawer made using jQuery with the toggle function and some CSS3 for the rounded corners</p>
+	<h3>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;RestViz</h3>
+	<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A Restaurant Visualization of the Yelp dataset</p>
+	<p>Based on yelp review data for restaurants RestViz will provide the best restaurant customized as per your need!</p>
 
-	<p>This panel could also be placed on the right. This could be particularly useful if, <a href="http://spyrestudios.com" title="SpyreStudios">like me</a>, you have a left-aligned website layout.</p>
-
-	
 <div style="clear:both;"></div>
 
 	<div class="columns">
 		<div class="colleft">
-		<h3>Navigation</h3>
-			<ul>
-				<li><a href="http://spyrestudios.com/" title="home">Home</a></li>
-				<li><a href="http://spyrestudios.com/about/" title="about">About</a></li>
-				<li><a href="http://spyrestudios.com/portfolio/" title="portfolio">Portfolio</a></li>
-				<li><a href="http://spyrestudios.com/contact/" title="contact">Contact</a></li>
-				<li><a href="http://spyrestudios.com" title="blog">Blog</a></li>
-			</ul>
+			<table>
+				<tr><h3>Legend:</h3></tr>
+				<tr>
+					<td>Low Rating (<=2.5)</td>
+					<td><img src="img/icon_circle_red.png"/></td>
+				</tr>
+				<tr>
+					<td>Moderate Rating (3, 3.5, 4)</td>
+					<td> <img src="img/icon_circle_yellow.png"/></td>
+				</tr>
+				<tr>
+					<td>High Rating (4.5, 5)</td>
+					<td><img src="img/icon_circle_green.png"/></td>
+				</tr>
+			</table>
 		</div>
 	
 		<div class="colright">
-			<h3>Social Stuff</h3>
-			<ul>
-				<li><a href="http://twitter.com/jophillips" title="Twitter">Twitter</a></li>
-				<li><a href="http://designbump.com/user/147" title="DesignBump">DesignBump</a></li>
-				<li><a href="http://digg.com/users/jophillips" title="Digg">Digg</a></li>
-				<li><a href="http://delicious.com/jon.phillips" title="Del.Icio.Us">Del.Icio.Us</a></li>
-				<li><a href="http://designmoo.com/users/jonphillips" title="DesignMoo">DesignMoo</a></li>
-			</ul>
+			<h3>What is important for you?</h3>
+				<input name="food" value="FOOD" type="checkbox">&nbsp;Good food</input><br>
+        		<input name="ambience" value="AMB"  type="checkbox">&nbsp;Good ambience</input><br>
+        		<input name="price" value="PRICE" type="checkbox">&nbsp;Worth the price</input><br>
+        		<input name="service" value="SERVICE" type="checkbox">&nbsp;Good service</input><br>
+			
 		</div>
 	</div>
 <div style="clear:both;"></div>
 
 </div>
-<a id="mytrigger" class="trigger" href="#">success viz</a>
+<a id="mytrigger" class="trigger" href="#">Filter results</a>
 <script src="<c:url value="js/script.js" />"></script>
 </body>
 </html>
