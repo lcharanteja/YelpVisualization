@@ -76,7 +76,7 @@ function generateAndPlaceMarkers()	{
 //     });
 	$.ajax({
 		type: "GET",
-		url: "data",
+		url: "getRest",
 		dataType: 'json',
 		error: function (request,status,errorThrown){alert("error:" + errorThrown);},
 		success: function(data) {processData(data);}
