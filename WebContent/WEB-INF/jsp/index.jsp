@@ -17,7 +17,7 @@ $(document).ready(function(){
 
 </head>
 
-<body>
+<body >
 
 
 		<div id="main_container">
@@ -29,26 +29,38 @@ $(document).ready(function(){
 	
 
 
-<div id="mypanel" class="panel">
+<div id="mypanel" class="panel" style="color: white;">
 	<h3>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;RestViz</h3>
-	<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A Restaurant Visualization of the Yelp dataset</p>
-	<p>Based on yelp review data for restaurants RestViz will provide the best restaurant customized as per your need!</p>
-
+	<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Rest assured that your evening is in good hands!</p>
+	<p>Customized Restaurant Selection based on the yelp dataset.</p>
+	<p id="typeSelect">Select Type: <select>
+		<option selected="selected" ></option>
+		<option>Restaurant-cuisine</option>
+  		<option>Pattiserie</option>
+	</select>
+	</p>
+	
+	<p id="cuisineSelect">Select Cuisine: <select>
+		<option value="CHINESE" selected="selected" >Chinese</option>
+  		<option value="INDIAN">Indian</option>
+	</select>
+	</p>
+	
 <div style="clear:both;"></div>
 
 	<div class="columns">
 		<div class="colleft">
-			<table>
-				<tr><h3>Legend:</h3></tr>
-				<tr>
+			<table style="border:3px solid white;">
+				<tr style="border:3px solid white;"><h3>Legend:</h3></tr>
+				<tr style="border:3px solid white;">
 					<td>Low Rating (<=2.5)</td>
 					<td><img src="img/icon_circle_red.png"/></td>
 				</tr>
-				<tr>
+				<tr style="border:3px solid white;">
 					<td>Moderate Rating (3, 3.5, 4)</td>
 					<td> <img src="img/icon_circle_yellow.png"/></td>
 				</tr>
-				<tr>
+				<tr style="border:3px solid white;">
 					<td>High Rating (4.5, 5)</td>
 					<td><img src="img/icon_circle_green.png"/></td>
 				</tr>
@@ -61,7 +73,7 @@ $(document).ready(function(){
         		<input name="ambience" value="AMB"  type="checkbox">&nbsp;Good ambience</input><br>
         		<input name="price" value="PRICE" type="checkbox">&nbsp;Worth the price</input><br>
         		<input name="service" value="SERVICE" type="checkbox">&nbsp;Good service</input><br>
-			
+				<br><button id="submitFilter" type="button">Filter</button>
 		</div>
 	</div>
 <div style="clear:both;"></div>

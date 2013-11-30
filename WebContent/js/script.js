@@ -9,6 +9,17 @@ $(document).ready(function() {
 		$(this).toggleClass("active");
 		return false;
 	});
+	
+	$("#cuisineSelect").hide();
+	$("#typeSelect").change(function(){
+		var value = $('#typeSelect').find(":selected").text();
+		if(value == "Restaurant-cuisine"){
+			alert("Please select a cuisine.");
+			$("#cuisineSelect").show();
+		} else{
+			$("#cuisineSelect").hide();
+		}
+	});
 });
 
 function initialize(){
@@ -31,12 +42,15 @@ function initialize(){
 	
 	generateAndPlaceMarkers();
 }
+
 function createMarker(anAlert) {
 	var alertLocation = new google.maps.LatLng(anAlert.latitude,anAlert.longitude);//37.09024,-95.712891);//new google.maps.LatLng(anAlert.latitude,anAlert.longitude),	alertMessage = "my msg",icon = "img/icon_circle_red.png";
 	
 	var myicon;
-	if(anAlert.popular==0){
+	if(anAlert.stars<=2.5){
 		myicon= "img/icon_circle_red.png";
+	} if(anAlert.stars>=3 && anAlert.stars <4){
+		myicon= "img/icon_circle_yellow.png";
 	}else{
 		myicon= "img/icon_circle_green.png";
 	}
@@ -54,20 +68,22 @@ function generateAndPlaceMarkers()	{
 	var anAlert=new Object();
 	anAlert.latitude=37.09024;
 	anAlert.longitude=-95.712891;
-	
-	
-
-    $.ajax({
-        type: "GET",
-        url: "resources/CA_Data.csv",
-        dataType: "text",
-        success: function(data) {processData(data);}
-     });
-    
-   
+//	$.ajax({
+//        type: "GET",
+//        url: "resources/CA_Data.csv",
+//        dataType: "text",
+//        success: function(data) {processData(data);}
+//     });
+	$.ajax({
+		type: "GET",
+		url: "data",
+		dataType: 'json',
+		error: function (request,status,errorThrown){alert("error:" + errorThrown);},
+		success: function(data) {processData(data);}
+	});
 }
 
-function processData(allText) {
+/*function processData(allText) {
     var allTextLines = allText.split(/\r\n|\n/);
     var headers = allTextLines[0].split(',');
     var lines = [];
@@ -117,7 +133,21 @@ function processData(allText) {
         }
     }
     // alert(lines);
+}*/
+
+function processData(allText) {
+    var lines = [];
+
+    for (var i = 0; i < allText.restaurant.length; i++) {
+        	var arest= allText.restaurant[i];
+            marker = createMarker(arest);
+    		//markers[anAlert.id] = marker;
+    		google.maps.event.addListener(marker,'click', markerClickHandler.bind(arest,marker));
+    		marker.setMap(myMap);
+    }
 }
+    // alert(lines);
+
 
 function markerClickHandler(marker,event)  {
 	//infoWindow.close(myMap);
@@ -131,7 +161,7 @@ function markerClickHandler(marker,event)  {
 			" <br/><b>URL: </b>" + selectedMarker.url + 
 			" <br/><b>category: </b>" + selectedMarker.category +
 			"<br/><b>subcategory: </b>" + selectedMarker.subcategory +
-			"<br/><b>isveg: </b>" + selectedMarker.is_veg +
+			"<br/><b>isveg: </b>" + selectedMarker.is_vegetarian +
 			"<br/><b>stars: </b>" + selectedMarker.stars +"</div>");
 	//infoWindow.setContent("category:" + selectedAlert.category + " subc:" + selectedAlert.subcategory + " latitude:" + selectedAlert.latitude +" longitude:" + selectedAlert.longitude);
 	infoWindow.open(myMap,marker);

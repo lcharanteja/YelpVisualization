@@ -11,6 +11,9 @@
         <dependent-module archiveName="asm-3.3.1.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/C:/Users/Prajakta/.m2/repository/asm/asm/3.3.1/asm-3.3.1.jar">
             <dependency-type>uses</dependency-type>
         </dependent-module>
+        <dependent-module archiveName="jersey-json-1.8.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/C:/Users/Prajakta/.m2/repository/com/sun/jersey/jersey-json/1.8/jersey-json-1.8.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
         <property name="context-root" value="YelpViz"/>
         <property name="java-output-path" value="/YelpViz/build/classes"/>
     </wb-module>
