@@ -21,6 +21,10 @@ public class Restaurant {
 	String state;
 	double latitude;
 	double longitude;
+	int isAmbienceGood;
+	int isFoodGood;
+	int isPriceGood;
+	int isServiceGood;
 	
 	public Restaurant() {}
 
@@ -28,7 +32,9 @@ public class Restaurant {
 			String open, String category, String subcategory,
 			String is_vegetarian, int review_count, float stars,
 			String neighborhoods, String url, String photo_url, String city,
-			String state, double latitude, double longitude) {
+			String state, double latitude, double longitude,
+			int isAmbienceGood, int isFoodGood, int isPriceGood,
+			int isServiceGood) {
 		super();
 		this.business_id = business_id;
 		this.name = name;
@@ -46,7 +52,57 @@ public class Restaurant {
 		this.state = state;
 		this.latitude = latitude;
 		this.longitude = longitude;
+		this.isAmbienceGood = isAmbienceGood;
+		this.isFoodGood = isFoodGood;
+		this.isPriceGood = isPriceGood;
+		this.isServiceGood = isServiceGood;
 	}
+
+	public int getIsAmbienceGood() {
+		return isAmbienceGood;
+	}
+
+	public void setIsAmbienceGood(int isAmbienceGood) {
+		this.isAmbienceGood = isAmbienceGood;
+	}
+
+
+
+	public int getIsFoodGood() {
+		return isFoodGood;
+	}
+
+
+
+	public void setIsFoodGood(int isFoodGood) {
+		this.isFoodGood = isFoodGood;
+	}
+
+
+
+	public int getIsPriceGood() {
+		return isPriceGood;
+	}
+
+
+
+	public void setIsPriceGood(int isPriceGood) {
+		this.isPriceGood = isPriceGood;
+	}
+
+
+
+	public int getIsServiceGood() {
+		return isServiceGood;
+	}
+
+
+
+	public void setIsServiceGood(int isServiceGood) {
+		this.isServiceGood = isServiceGood;
+	}
+
+
 
 	public String getBusiness_id() {
 		return business_id;

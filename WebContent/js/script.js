@@ -13,14 +13,72 @@ $(document).ready(function() {
 	$("#cuisineSelect").hide();
 	$("#typeSelect").change(function(){
 		var value = $('#typeSelect').find(":selected").text();
-		if(value == "Restaurant-cuisine"){
+		if(value == "Restaurant"){     //TODO:Filter as per subcategory
 			alert("Please select a cuisine.");
 			$("#cuisineSelect").show();
 		} else{
 			$("#cuisineSelect").hide();
 		}
 	});
+	$("#cuisineSelect").change(function(){
+		clearMarkers();
+		var category = $('#typeSelect').find(":selected").text();
+		var subcategory = $('#cuisineSelect').find(":selected").text();
+		$.ajax({
+			type: "GET",
+			url: "getRestOfType/"+ category + "/" + subcategory,
+			dataType: 'json',
+			error: function (request,status,errorThrown){alert("Error:" + errorThrown);},
+			success: function(data) {processData(data);}
+		});
+	});
+	
+	$("#submitFilter").click(function(){
+		clearMarkers();
+		alert("filtering results");
+		var category = $('#typeSelect').find(":selected").text();
+		var subcategory = $('#cuisineSelect').find(":selected").text();
+		
+		var ambience =  $('input[name="ambience"]').is(':checked');
+		var food = $('input[name="food"]').is(':checked');
+		var price = $('input[name="price"]').is(':checked');
+		var service = $('input[name="service"]').is(':checked');
+		if(ambience == true) {
+			ambience = 1;
+		} else{
+			ambience = 0;
+		}
+		if(food == true) {
+			food = 1;
+		} else{
+			food = 0;
+		}
+		if(price == true) {
+			price = 1;
+		} else{
+			price = 0;
+		}
+		if(service == true) {
+			service = 1;
+		} else{
+			service = 0;
+		}
+		$.ajax({
+			type: "GET",
+			url: "getFilterRestOfType/" + category +"," + subcategory +"," + ambience +"," + food + "," + price + "," + service,
+			dataType: 'json',
+			error: function (request,status,errorThrown){alert("Error:" + errorThrown);},
+			success: function(data) {processData(data);}
+		});
+	});
 });
+
+function clearMarkers(){
+	for (var j=0; j<markers.length; j++) {
+		markers[j].setMap(null);
+	}
+	markers=[];
+}
 
 function initialize(){
 	var myOptions = {
@@ -49,7 +107,7 @@ function createMarker(anAlert) {
 	var myicon;
 	if(anAlert.stars<=2.5){
 		myicon= "img/icon_circle_red.png";
-	} if(anAlert.stars>=3 && anAlert.stars <4){
+	} else if(anAlert.stars>=3 && anAlert.stars <4){
 		myicon= "img/icon_circle_yellow.png";
 	}else{
 		myicon= "img/icon_circle_green.png";
@@ -141,7 +199,7 @@ function processData(allText) {
     for (var i = 0; i < allText.restaurant.length; i++) {
         	var arest= allText.restaurant[i];
             marker = createMarker(arest);
-    		//markers[anAlert.id] = marker;
+            markers.push(marker);
     		google.maps.event.addListener(marker,'click', markerClickHandler.bind(arest,marker));
     		marker.setMap(myMap);
     }
@@ -153,16 +211,48 @@ function markerClickHandler(marker,event)  {
 	//infoWindow.close(myMap);
 	//regionWindow.close(myMap);
 	var selectedMarker = this;
-	infoWindow.setContent("<div style='width: 310px; height:150px; font-size: 11px;'><b>name: </b>" + selectedMarker.name  +
+	table="<table border='1'><th> Ambience </th><th> Food </th><th> Value </th><th> Service </th>"+
+	"<tr> " ;
+	
+	if(selectedMarker.isAmbienceGood == 1){
+		table += "<td> <img src='img/greenstar1.jpg'>  </td>";
+	}else{
+		table += "<td> <img src='img/redstar1.jpg'>  </td>";
+	}
+	
+	if(selectedMarker.isFoodGood == 1){
+		table += "<td align='center' valign='middle'> <img src='img/greenstar1.jpg'>  </td>";
+	}else{
+		table += "<td align='center' valign='middle'> <img src='img/redstar1.jpg'>  </td>";
+	}
+	
+	if(selectedMarker.isPriceGood == 1){
+		table += "<td align='center' valign='middle'> <img src='img/greenstar1.jpg'>  </td>";
+	}else{
+		table += "<td align='center' valign='middle'> <img src='img/redstar1.jpg'>  </td>";
+	}
+	
+	if(selectedMarker.isServiceGood == 1){
+		table += "<td align='center' valign='middle'> <img src='img/greenstar1.jpg'>  </td>";
+	}else{
+		table += "<td align='center' valign='middle'> <img src='img/redstar1.jpg'>  </td>";
+	}
+	table += "</tr></table>";
+	infoWindow.setContent("<div style='width: 310px; height:200px; font-size: 11px;'><b>Name: </b>" + selectedMarker.name  +
 			//" <br/><b>Country: </b>" + selectedAlert.country.countryName +
 			" <br/><b>Coordinates: </b> (" + selectedMarker.latitude + ", " + selectedMarker.longitude + ")" +
-			" <br/><b>School: </b>" + selectedMarker.school +
+			" <br/><b>School: </b>" + selectedMarker.schools +
 			" <br/><b>Open: </b>" + selectedMarker.open +
 			" <br/><b>URL: </b>" + selectedMarker.url + 
-			" <br/><b>category: </b>" + selectedMarker.category +
-			"<br/><b>subcategory: </b>" + selectedMarker.subcategory +
-			"<br/><b>isveg: </b>" + selectedMarker.is_vegetarian +
-			"<br/><b>stars: </b>" + selectedMarker.stars +"</div>");
+			" <br/><b>Category: </b>" + selectedMarker.category +
+			"<br/><b>Subcategory: </b>" + selectedMarker.subcategory +
+			"<br/><b>Is Vegetarian: </b>" + selectedMarker.is_vegetarian +
+			"<br/><b>Stars: </b>" + selectedMarker.stars +
+			//"<br/><b>ambience: </b>" + selectedMarker.isAmbienceGood +
+			//"<br/><b>food: </b>" + selectedMarker.isFoodGood +
+			//"<br/><b>value for money: </b>" + selectedMarker.isPriceGood +
+			//"<br/><b>service: </b>" + selectedMarker.isServiceGood + 
+			"<br/>" + table + "</div>");
 	//infoWindow.setContent("category:" + selectedAlert.category + " subc:" + selectedAlert.subcategory + " latitude:" + selectedAlert.latitude +" longitude:" + selectedAlert.longitude);
 	infoWindow.open(myMap,marker);
 }

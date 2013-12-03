@@ -35,13 +35,14 @@ $(document).ready(function(){
 	<p>Customized Restaurant Selection based on the yelp dataset.</p>
 	<p id="typeSelect">Select Type: <select>
 		<option selected="selected" ></option>
-		<option>Restaurant-cuisine</option>
+		<option>Restaurant</option>
   		<option>Pattiserie</option>
 	</select>
 	</p>
 	
 	<p id="cuisineSelect">Select Cuisine: <select>
-		<option value="CHINESE" selected="selected" >Chinese</option>
+		<option selected="selected" ></option>
+		<option value="CHINESE" >Chinese</option>
   		<option value="INDIAN">Indian</option>
 	</select>
 	</p>
@@ -71,9 +72,9 @@ $(document).ready(function(){
 			<h3>What is important for you?</h3>
 				<input name="food" value="FOOD" type="checkbox">&nbsp;Good food</input><br>
         		<input name="ambience" value="AMB"  type="checkbox">&nbsp;Good ambience</input><br>
-        		<input name="price" value="PRICE" type="checkbox">&nbsp;Worth the price</input><br>
+        		<input name="price" value="PRICE" type="checkbox">&nbsp;Value for money</input><br>
         		<input name="service" value="SERVICE" type="checkbox">&nbsp;Good service</input><br>
-				<br><button id="submitFilter" type="button">Filter</button>
+				<br><button id="submitFilter" type="button">Apply Filter</button>
 		</div>
 	</div>
 <div style="clear:both;"></div>
