@@ -10,27 +10,55 @@ $(document).ready(function() {
 		return false;
 	});
 	
-	$("#cuisineSelect").hide();
+	$("#pcuisineSelect").hide();
 	$("#typeSelect").change(function(){
+		uncheckboxes();
 		var value = $('#typeSelect').find(":selected").text();
-		if(value == "Restaurant"){     //TODO:Filter as per subcategory
-			alert("Please select a cuisine.");
-			$("#cuisineSelect").show();
+		$('#cuisineSelect').empty();
+		if(value == "Patisserie"){     
+			$('#cuisineSelect').append( new Option("","") );
+			$('#cuisineSelect').append( new Option("Dessert","DESSERT") );
+			$('#cuisineSelect').append( new Option("Beverages","BEVERAGES") );
+			$('#cuisineSelect').append( new Option("Bakeries","BAKERIES") );
 		} else{
-			$("#cuisineSelect").hide();
+			$('#cuisineSelect').append( new Option("","") );
+			$('#cuisineSelect').append( new Option("American","AMERICAN") );
+			$('#cuisineSelect').append( new Option("Chinese","CHINESE") );
+			$('#cuisineSelect').append( new Option("Indian","INDIAN") );
+			$('#cuisineSelect').append( new Option("AsianFusion","ASIANFUSION") );
+			$('#cuisineSelect').append( new Option("Barbeque","BARBEQUE") );
+			$('#cuisineSelect').append( new Option("Brazilian","BRAZILIAN") );
+			$('#cuisineSelect').append( new Option("Japanese","JAPANESE") );
+			$('#cuisineSelect').append( new Option("Korean","KOREAN") );
+			$('#cuisineSelect').append( new Option("Italian","ITALIAN") );
+			$('#cuisineSelect').append( new Option("Latin American","LATINAMERICAN") );
+			$('#cuisineSelect').append( new Option("Mediterranian","MEDITERRANIAN") );
+			$('#cuisineSelect').append( new Option("Mexican","MEXICAN") );
+			$('#cuisineSelect').append( new Option("MiddleEastern","MIDDLEEASTERN") );
+			$('#cuisineSelect').append( new Option("Pizza","PIZZA") );
+			$('#cuisineSelect').append( new Option("Seafood","SEAFOOD") );
+			$('#cuisineSelect').append( new Option("Thai","THAI") );
+			$('#cuisineSelect').append( new Option("Turkish","TURKISH") );
+			$('#cuisineSelect').append( new Option("Vietnamese","Vietnamese") );
 		}
+		$("#pcuisineSelect").show();
 	});
 	$("#cuisineSelect").change(function(){
+		uncheckboxes();
 		clearMarkers();
 		var category = $('#typeSelect').find(":selected").text();
 		var subcategory = $('#cuisineSelect').find(":selected").text();
-		$.ajax({
-			type: "GET",
-			url: "getRestOfType/"+ category + "/" + subcategory,
-			dataType: 'json',
-			error: function (request,status,errorThrown){alert("Error:" + errorThrown);},
-			success: function(data) {processData(data);}
-		});
+		if(category == "" || subcategory == "" || category==null || subcategory ==null){
+			alert("Please select a category and subcategory.");
+		}else{
+			$.ajax({
+				type: "GET",
+				url: "getRestOfType/"+ category + "/" + subcategory,
+				dataType: 'json',
+				error: function (request,status,errorThrown){alert("Error:" + errorThrown);},
+				success: function(data) {processData(data);}
+			});
+		}
 	});
 	
 	$("#submitFilter").click(function(){
@@ -72,6 +100,14 @@ $(document).ready(function() {
 		});
 	});
 });
+
+function uncheckboxes(){
+	$('input[name="ambience"]').attr('checked', false); 
+	$('input[name="food"]').attr('checked', false); 
+	$('input[name="price"]').attr('checked', false); 
+	$('input[name="service"]').attr('checked', false); 
+	
+}
 
 function clearMarkers(){
 	for (var j=0; j<markers.length; j++) {

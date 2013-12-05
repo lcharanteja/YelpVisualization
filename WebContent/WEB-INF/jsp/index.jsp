@@ -36,14 +36,17 @@ $(document).ready(function(){
 	<p id="typeSelect">Select Type: <select>
 		<option selected="selected" ></option>
 		<option>Restaurant</option>
-  		<option>Pattiserie</option>
+  		<option>Patisserie</option>
+  		<option>Delis</option>
+  		<option>Diners</option>
+  		<option>Cafes</option>
+  		<option>Fast Food</option>
+  		<option>Food Stand</option>
 	</select>
 	</p>
 	
-	<p id="cuisineSelect">Select Cuisine: <select>
-		<option selected="selected" ></option>
-		<option value="CHINESE" >Chinese</option>
-  		<option value="INDIAN">Indian</option>
+	<p id="pcuisineSelect">Select Cuisine: 
+	<select id="cuisineSelect">
 	</select>
 	</p>
 	
